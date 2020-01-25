@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, Image , Alert} from 'react-native';
 import Colors from '../constants/Colors';
+//OJO ---- instalar las dependencias de expo usando :  expo install bla bla bla
+//sino va a haber problemas de compatibilidad!!
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
@@ -40,6 +42,9 @@ const ImgPicker = props => {
         });
         //la uri puede ser utilizada directamente por el componente Image
         setPickedImage(image.uri);
+        //invocamos una funcion del padre para que se guarde tambien la imagen en ese componente para luego
+        //ser derivada al store
+        props.onImageTaken(image.uri);
     }
 
     return <View style={styles.imagePicker}>
