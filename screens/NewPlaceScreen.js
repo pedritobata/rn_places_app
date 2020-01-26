@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, ScrollView } from 'react-native';
 import Colors from '../constants/Colors';
 import * as placeActions from '../store/places-actions';
 import ImagePicker from '../components/ImagePicker';
+import LocationPicker from '../components/LocationPicker';
+import LocatorPicker from '../components/LocationPicker';
 
 const NewPlaceScreen = props => {
 
@@ -26,16 +28,19 @@ const NewPlaceScreen = props => {
         props.navigation.goBack();
     }
 
-    return <View style={styles.form}>
-        <Text style={styles.label}>Title</Text>
-        <TextInput 
-            style={styles.textInput}
-            onChangeText={titleChangeHandler}
-            value={titleValue}
-        />
-        <ImagePicker onImageTaken={imageTakenHandler} />
-        <Button title="Save Place" color={Colors.primary} onPress={savePlaceHandler}/>
-    </View>
+    return <ScrollView>
+        <View style={styles.form}>
+            <Text style={styles.label}>Title</Text>
+            <TextInput 
+                style={styles.textInput}
+                onChangeText={titleChangeHandler}
+                value={titleValue}
+            />
+            <ImagePicker onImageTaken={imageTakenHandler} />
+            <LocationPicker navigation={props.navigation}  />
+            <Button title="Save Place" color={Colors.primary} onPress={savePlaceHandler}/>
+        </View>
+    </ScrollView>
 }
 
 NewPlaceScreen.navigationOptions = navData => {

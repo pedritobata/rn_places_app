@@ -5,6 +5,18 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import {placesReducer} from './store/places-reducer';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
+import { init } from './helpers/db';
+
+//inicializamos la bd
+init().then(() => {
+  console.log('Initialiazing BD successful.');
+})
+.catch(err => {
+  console.log('Initialiazing BD failed.');
+  console.log(err);
+})
+
+
 
 const rootReducer = combineReducers({
   places: placesReducer
