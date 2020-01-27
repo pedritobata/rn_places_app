@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,16 @@ import MapPreview from "./MapPreview";
 const LocatorPicker = props => {
   const [pickedLocation, setPickedLocation] = useState();
   const [isFetching, setIsFetching] = useState(false);
+
+  const mapPickedLocation = props.navigation.getParam('pickedLocation');
+
+  const { onLocationPicked } = props;
+  useEffect(() => {
+    if(mapPickedLocation){
+      setPickedLocation(mapPickedLocation);
+      onLocationPicked(mapPickedLocation);
+    }
+  }, [mapPickedLocation, onLocationPicked]);
 
   const verifyPermissions = async () => {
     const result = await Permissions.askAsync(Permissions.LOCATION);
@@ -40,6 +50,12 @@ const LocatorPicker = props => {
         timeout: 5000
       });
       setPickedLocation({
+        lat: location.coords.latitude,
+        lng: location.coords.longitude
+      });
+      //informamos a NewPlaceScreen que la location cambió. ejecutamos un callback 
+      //proporcionado por él
+      props.onLocationPicked({
         lat: location.coords.latitude,
         lng: location.coords.longitude
       });
