@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "RN Guide",
-    "slug": "rn-complete-guide",
+    "name": "Places App",
+    "slug": "rn-places-app",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
